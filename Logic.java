@@ -14,8 +14,8 @@ import java.util.regex.*;
 public class Logic
 {
     /**
-     * Checks if the string statement is a proposition i.e. whether it is
-     * true or false.
+     * Checks if the string statement is a proposition i.e. whether it has
+     * a true or false value.
      * 
      * @param   statement   the propositional statement to be tested.
      * @return  true if the statement is a proposition, false otherwise.

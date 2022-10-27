@@ -7,7 +7,6 @@
 package harry;
 
 import java.util.Arrays;
-import java.util.regex.*;
 
 /*
  * The Mathematics class contains functions necessary for facilitating mathematical 

@@ -49,6 +49,17 @@ class Mathematics
         }
         return count;
     }
+    
+    /**
+     * The isPrime method checks whether the integer parameter num is a prime number.
+     * 
+     * @param   num   the integer to be tested.
+     * @return  true if num is a prime number and false otherwise.
+     */
+    public boolean isPrime(int num)
+    {
+        return  (factorsCount(number) == 2) ? true : false;
+    }
 
     /*
      * The commonMultiples() method takes an Integer number object x and returns an Integer object array of 

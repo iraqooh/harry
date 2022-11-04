@@ -51,6 +51,18 @@ public class Proposition
     }
 
     /**
+     * Constructor to create a Propositional variable object with
+     * the statement of fact attribute initialized.
+     * 
+     * @param   statement   the propositional statement of the object.
+     */
+    public Proposition(String statement)
+    {
+        this.statement = statement;
+        this.truthValue = false;
+    }
+
+    /**
      * Instance method to retrieve the truth value of the Proposition
      * object variable.
      * 
@@ -73,6 +85,28 @@ public class Proposition
         return this.statement;
     }
 
+    /*
+     * Instance method to set the truth value of the this Proposition variable
+     * 
+     * @param   truthValue  the boolean value to set for this proposition variable object
+     * @return  void
+     */
+    public void setValue(boolean truthValue)
+    {
+        this.truthValue = truthValue;
+    }
+
+    /*
+     * Instance method to set the propositional statement of the this Proposition variable
+     * 
+     * @param   statement  the statement that describes this proposition variable object
+     * @return  void
+     */
+    public void setStatement(String statement)
+    {
+        this.statement = statement;
+    }
+
     /**
      * Instance method that combines this proposition with another proposition, q,
      * into a new proposition whose truth value is true if and only if the 
@@ -85,6 +119,7 @@ public class Proposition
     {
         Proposition conjunction = new Proposition();
         conjunction.truthValue = this.truthValue && q.truthValue;
+        conjunction.statement = this.statement.concat("^").concat(q.statement);
         return conjunction;
     }
 
@@ -100,6 +135,7 @@ public class Proposition
     {
         Proposition disjunction = new Proposition();
         disjunction.truthValue = this.truthValue || q.truthValue;
+        disjunction.statement = this.statement.concat("v").concat(q.statement);
         return disjunction;
     }
 
@@ -115,6 +151,7 @@ public class Proposition
     {
         Proposition exclusiveOr = new Proposition();
         exclusiveOr.truthValue = this.truthValue ^ q.truthValue;
+        exclusiveOr.statement = this.statement.concat("x").concat(q.statement);
         return exclusiveOr;
     }
 
@@ -124,11 +161,10 @@ public class Proposition
      * 
      * @return  the negation of this proposition.
      */
-    public Proposition not()
+    public void not()
     {
-        Proposition negation = new Proposition();
-        negation.truthValue = !this.truthValue;
-        return negation;
+        if(this.truthValue) this.truthValue = false;
+        else this.truthValue = true;
     }
 
     /**
@@ -144,6 +180,7 @@ public class Proposition
         Proposition conditional = new Proposition();
         if(this.truthValue && !q.truthValue) conditional.truthValue = false;
         else conditional.truthValue = true;
+        conditional.statement = this.statement.concat("->").concat(q.statement);
         return conditional;
     }
 
@@ -160,6 +197,7 @@ public class Proposition
         Proposition biconditional = new Proposition();
         if(this.truthValue == q.truthValue) biconditional.truthValue = true;
         else biconditional.truthValue = false;
+        biconditional.statement = this.statement.concat("<=>").concat(q.statement);
         return biconditional;
     }
 }

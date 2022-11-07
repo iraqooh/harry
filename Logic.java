@@ -14,17 +14,19 @@ import java.util.Arrays;
  */
 public class Logic extends Lang
 {
+    private String problemStatement;
     private String[] problem;
-    private Proposition[] propositions;
+    public Proposition[] propositions;
     private String[] variables;
     private static final String[] replacements = {"a", "b", "c", "d", "e", "f",
         "g", "h", "i", "j", "k", "l", "m", "n", "o"};
     private int orderOfReplacement;
-    private Proposition execution;
+    public Proposition execution;
     private int frequency;
 
     public Logic(String proposition)
     {
+        this.problemStatement = proposition;
         this.problem = new String[1];
         this.problem[0] = proposition;
         this.propositions = createVariables(proposition);
@@ -263,8 +265,27 @@ public class Logic extends Lang
                 System.out.print(propositions[i].getValue() + "\t");
                 if(progress[i] >= progressCap * 2) progress[i] = 0;
             }
-            this.parseStatement(problem);
+            if(problem[0].contains("("))
+            {
+                int numberOfBrackets = numberOfOccurrences(problem[0], '(', false);
+                for(int i=0; i<numberOfBrackets; i++)
+                {
+                    String bracketExpression = problem[0].substring(problem[0].lastIndexOf("("));
+                    bracketExpression = bracketExpression.substring(0, bracketExpression.indexOf(")") + 1);
+                    String expression = bracketExpression.substring(1, bracketExpression.indexOf(")"));
+                    String[] expressionReference = {expression};
+                    parseExpression(expressionReference);
+                    problem[0] = problem[0].replace(bracketExpression, replacements[orderOfReplacement]);
+                    orderOfReplacement++;
+                }
+            }
+            parseExpression(problem);
             System.out.println(this.execution.getValue());
+            this.problem[0] = this.problemStatement;
+            for(int i=0; i<this.propositions.length; i++)
+            {
+                this.propositions[i].setStatement(this.variables[i]);
+            }
         }
     }
 }

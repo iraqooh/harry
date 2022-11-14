@@ -66,7 +66,7 @@ class Mathematic
      * The commonMultiples() method takes an Integer number object x and returns an Integer object array of 
      * the common multiples of x
      */
-    public static Integer[] commonMultiples(Integer x, Integer y)
+    public static Integer[] commonFactors(Integer x, Integer y)
     {
         int index = 0, limit = (x < y) ? x : y;
         Integer[] output = new Integer[limit];
@@ -80,6 +80,25 @@ class Mathematic
         }
         return Arrays.copyOf(output, index);
     }
+
+    /**
+     * gcd returns the highest common divisor of two integer numbers
+     * 
+     * @param   num1   the first integer.
+     * @param   num2   the second integer.
+     */
+    public static int gcd(int x, int y)
+    {
+        Integer[] f = Mathematic.factors(x), g = Mathematic.factors(y);
+        for(int i=g.length-1; i>=0; i--)
+        {
+            for(int j=f.length-1; j>=0; j--)
+            {
+                if(f[j].equals(g[i])) return f[j];
+            }
+        }
+        return 1;
+    }
     
     /**
      * lcm returns the lowest common multiple of two integer numbers
@@ -89,13 +108,11 @@ class Mathematic
      */
     public static int lcm(int num1, int num2) 
     {
-        int max = (num1 > num2) ? num1 : num2;
-        int min = (num1 < num2) ? num1 : num2;
         for(int i=1; i<=(num1*num2); i++)
         {
-            for(int j=1; j<=(num1*num2); j++) if((min * j) == (max * i)) return (max * i);
+            for(int j=1; j<=(num1*num2); j++) if((num2 * j) == (num1 * i)) return (num1 * i);
         }
-        return 0;
+        return -1;
     }
 
     /*

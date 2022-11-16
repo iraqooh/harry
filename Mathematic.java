@@ -86,10 +86,12 @@ class Mathematic
      * 
      * @param   num1   the first integer.
      * @param   num2   the second integer.
+     * 
+     * @return  the highest common divisor of num1 and num2
      */
-    public static int gcd(int x, int y)
+    public static int gcd(int num1, int num2)
     {
-        Integer[] f = Mathematic.factors(x), g = Mathematic.factors(y);
+        Integer[] f = Mathematic.factors(num1), g = Mathematic.factors(num2);
         for(int i=g.length-1; i>=0; i--)
         {
             for(int j=f.length-1; j>=0; j--)
@@ -99,12 +101,33 @@ class Mathematic
         }
         return 1;
     }
+
+    /**
+     * gcd returns the highest common divisor of multiple integers
+     * from an array
+     * 
+     * @param   array   the integer array from which the greatest
+     * common divisor is to be determined.
+     * 
+     * @return  the highest common divisor of all integers from array
+     */
+    public static int gcd(int[] array)
+    {
+        int result = gcd(array[0], array[1]);
+        for(int i=2; i<array.length; i++)
+        {
+            result = gcd(result, array[i]);
+        }
+        return result;
+    }
     
     /**
      * lcm returns the lowest common multiple of two integer numbers
      * 
      * @param   num1   the first integer.
      * @param   num2   the second integer.
+     * 
+     * @return  the lowest common multiple of num1 and num2
      */
     public static int lcm(int num1, int num2) 
     {
@@ -113,6 +136,24 @@ class Mathematic
             for(int j=1; j<=(num1*num2); j++) if((num2 * j) == (num1 * i)) return (num1 * i);
         }
         return -1;
+    }
+
+    /**
+     * lcm returns the lowest common multiple of a series of integer numbers in an array
+     * 
+     * @param   array   the array of integers from which the lowest common multiple is 
+     * to be generated
+     * 
+     * @return  the lowest common multiple of integers from array
+     */
+    public static int lcm(int[] array)
+    {
+        int output = array[0];
+        for(int i=1; i<array.length; i++)
+        {
+            output = (output * array[i])/Mathematic.gcd(output, array[i]);
+        }
+        return output;
     }
 
     /*
